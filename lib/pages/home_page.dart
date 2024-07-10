@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weather/constant/colors.dart';
 import 'package:weather/pages/custom_search_text_filed.dart';
+import 'package:weather/pages/weather_body.dart';
 
 class HomePage extends StatefulWidget {
   static String routeName = "home";
@@ -31,6 +32,8 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: [
             SearchTextFiled(),
+            Spacer(),
+            WeatherBody()
           ],
         ),
       ),
