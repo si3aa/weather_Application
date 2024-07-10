@@ -23,15 +23,14 @@ class _HomePageState extends State<HomePage> {
       'q': "cairo",
       'aqi': "no"
     });
-    WeatherModel model = WeatherModel(
-      cityName: response.data['location']['name'],
-      country: response.data['location']['country'],
-      tempC: response.data['current']['temp_c'],
-      weatherStatus: response.data['current']['condition']['text'],
-      weatherIcon: response.data['current']['condition']['icon'],
-    );
+    WeatherModel model = WeatherModel.fromJson(response.data);
 
+    print(model.cityName);
     print(model.country);
+    print(model.tempC);
+    print(model.weatherStatus);
+    print(model.weatherIcon);
+
   }
 
   @override
