@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather/constant/colors.dart';
+import 'package:weather/models/weather_model.dart';
 import 'package:weather/pages/custom_search_text_filed.dart';
 import 'package:weather/pages/weather_body.dart';
 import 'package:dio/dio.dart';
@@ -16,12 +17,21 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final dio = Dio();
   void getHttp() async {
-    final response = await dio.get('https://api.weatherapi.com/v1/forecast.json', queryParameters: {
+    final response = await dio
+        .get('https://api.weatherapi.com/v1/forecast.json', queryParameters: {
       'key': "a0f8e52f97f744d5b92141431240102",
       'q': "cairo",
-       'aqi':"no"
+      'aqi': "no"
     });
-    print(response.data['location']['name']);
+    WeatherModel model = WeatherModel(
+      cityName: response.data['location']['name'],
+      country: response.data['location']['country'],
+      tempC: response.data['current']['temp_c'],
+      weatherStatus: response.data['current']['condition']['text'],
+      weatherIcon: response.data['current']['condition']['icon'],
+    );
+
+    print(model.country);
   }
 
   @override
