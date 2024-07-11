@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:weather/constant/colors.dart';
 import 'package:weather/models/weather.dart';
@@ -17,7 +16,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   WeatherModel2? w;
-  bool isLoading =true;
+  bool isLoading = true;
   @override
   void initState() {
     getData();
@@ -25,10 +24,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   getData() async {
-    try{
-    w = await WeatherDio().getHttp();
-    isLoading = false;
-    }catch(e){
+    try {
+      w = await WeatherDio().getHttp();
+      isLoading = false;
+    } catch (e) {
       print(e);
     }
   }
