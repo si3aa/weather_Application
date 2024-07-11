@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather/constant/colors.dart';
 import 'package:weather/cubit/get_weather/get_cubit.dart';
+import 'package:weather/cubit/get_weather/get_state.dart';
 import 'package:weather/pages/custom_search_text_filed.dart';
+import 'package:weather/pages/error_page.dart';
+import 'package:weather/pages/loading_page.dart';
 import 'package:weather/pages/weather_body.dart';
 
 class HomePage extends StatefulWidget {
@@ -24,9 +27,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-      ),
       backgroundColor: AppColor.backgroundColor,
       appBar: AppBar(
         backgroundColor: AppColor.backgroundColor,
@@ -39,10 +39,23 @@ class _HomePageState extends State<HomePage> {
               color: AppColor.textColor),
         ),
       ),
-      body: const Padding(
-        padding: EdgeInsets.all(12),
+      body: Padding(
+        padding: const EdgeInsets.all(12),
         child: Column(
-          children: [SearchTextFiled(), Spacer(), WeatherBody()],
+          children: [
+            const SearchTextFiled(),
+            BlocBuilder<WeatherCubit, WeatherState>(builder: (context, state) {
+              if (state is LoadingWeather) {
+                return const LoadWeather();
+              } else if (state is SuccessWeather) {
+                return const WeatherBody();
+              } else {
+                return const ErrorPage();
+              }
+            }),
+            // const Spacer(),
+            // const WeatherBody(),
+          ],
         ),
       ),
     );
