@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather/constant/colors.dart';
-import 'package:weather/models/weather.dart';
-
+import 'package:weather/cubit/get_weather/get_cubit.dart';
 import 'package:weather/pages/custom_search_text_filed.dart';
 import 'package:weather/pages/weather_body.dart';
-import 'package:weather/services/dio.dart';
 
 class HomePage extends StatefulWidget {
   static String routeName = "home";
@@ -15,30 +14,18 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  WeatherModel2? w;
   bool isLoading = true;
   @override
   void initState() {
-    getData();
     super.initState();
-  }
-
-  getData() async {
-    try {
-      w = await WeatherDio().getHttp(loc: '');
-      isLoading = false;
-    } catch (e) {
-      print(e);
-    }
+    BlocProvider.of<WeatherCubit>(context).getWeather();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // getHttp();
-        },
+        onPressed: () {},
       ),
       backgroundColor: AppColor.backgroundColor,
       appBar: AppBar(
