@@ -6,4 +6,6 @@ class LoadingWeather extends WeatherState {}
 
 class SuccessWeather extends WeatherState {}
 
-class FailureWeather extends WeatherState {}
+class FailureWeather extends WeatherState {
+  FailureWeather({required String message});
+}

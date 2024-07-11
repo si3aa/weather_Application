@@ -6,11 +6,13 @@ import 'package:weather/services/dio.dart';
 class WeatherCubit extends Cubit<WeatherState> {
   WeatherCubit() : super(InitWeather());
   WeatherModel2? weather;
-  void getWeather() async {
+  void getWeather({String loc ='Cairo'}) async {
+    emit(LoadingWeather());
     try {
-      weather = await WeatherDio().getHttp();
+      weather = await WeatherDio().getHttp(loc: loc);
+      emit(SuccessWeather());
     } catch (e) {
-      print(e);
+      emit(FailureWeather(message: e.toString()));
     }
   }
 }

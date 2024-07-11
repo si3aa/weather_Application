@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
 
   getData() async {
     try {
-      w = await WeatherDio().getHttp();
+      w = await WeatherDio().getHttp(loc: '');
       isLoading = false;
     } catch (e) {
       print(e);
