@@ -1,77 +1,81 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather/components/custom_card.dart';
 import 'package:weather/constant/colors.dart';
+import 'package:weather/cubit/get_weather/get_cubit.dart';
+import 'package:weather/models/weather.dart';
 
 class WeatherBody extends StatelessWidget {
   const WeatherBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    WeatherModel2 weather = BlocProvider.of<WeatherCubit>(context).weather!;
+    return Column(
       children: [
         Row(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Icon(
+            const Icon(
               Icons.location_pin,
               color: AppColor.textColor,
-              size: 50,
+              size: 60,
             ),
-            SizedBox(
-              width: 16,
+            const SizedBox(
+              width: 20,
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Egypt",
-                  style: TextStyle(fontSize: 22, color: AppColor.textColor),
+                  weather.location.name,
+                  style:
+                      const TextStyle(fontSize: 28, color: AppColor.textColor),
                 ),
-                Text(
-                  "Cairo",
-                  style: TextStyle(color: AppColor.textColor),
+                 Text(
+                   weather.location.country,
+                  style: const TextStyle(color: AppColor.textColor, fontSize: 24),
                 )
               ],
             )
           ],
         ),
-        SizedBox(
-          height: 40,
+        const SizedBox(
+          height: 50,
         ),
-        Row(
+         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Column(
               children: [
                 Text(
-                  "Sunny",
-                  style: TextStyle(fontSize: 22, color: AppColor.textColor),
+                 weather.current.condition.text,
+                  style: const TextStyle(fontSize: 24, color: AppColor.textColor),
                 ),
                 Text(
-                  "30°",
-                  style: TextStyle(color: AppColor.textColor),
+                  weather.current.tempC.toString(),
+                  style: const TextStyle(color: AppColor.textColor, fontSize: 24),
                 )
               ],
             ),
-            SizedBox(
-              width: 20,
+            const SizedBox(
+              width: 24,
             ),
-            Icon(
+            const Icon(
               Icons.sunny,
               color: AppColor.textColor,
-              size: 60,
+              size: 70,
             )
           ],
         ),
-        SizedBox(
+        const SizedBox(
           height: 50,
         ),
-        Row(
+         Row(
           children: [
-            WeatherCard(),
-            WeatherCard(),
-            WeatherCard(),
-
+            WeatherCard(index: 0),
+            WeatherCard(index: 1),
+            WeatherCard(index: 2),
           ],
         )
       ],

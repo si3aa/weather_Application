@@ -1,8 +1,18 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:weather/constant/colors.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:weather/constant/colors.dart';
+import 'package:weather/cubit/get_weather/get_cubit.dart';
+import 'package:weather/models/weather.dart';
+
+// ignore: must_be_immutable
 class WeatherCard extends StatefulWidget {
-  const WeatherCard({super.key});
+  int index = 0;
+  WeatherCard({
+    super.key,
+    required this.index,
+  });
 
   @override
   State<WeatherCard> createState() => _WeatherCardState();
@@ -11,26 +21,42 @@ class WeatherCard extends StatefulWidget {
 class _WeatherCardState extends State<WeatherCard> {
   @override
   Widget build(BuildContext context) {
-    return const Expanded(
-      child: Column(
-        children: [
-          Text(
-            'Today',
-            style: TextStyle(color: AppColor.textColor),
+    WeatherModel2 weather = BlocProvider.of<WeatherCubit>(context).weather!;
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          decoration: BoxDecoration(
+            color: AppColor.textColor.withOpacity(.2),
+            borderRadius: BorderRadius.circular(10),
           ),
-          Text(
-            '30°',
-            style: TextStyle(color: AppColor.textColor),
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              Text(
+                weather.forecast.forecastday[widget.index].date.day.toString(),
+                style: const TextStyle(color: AppColor.textColor, fontSize: 20),
+              ),
+              const SizedBox(height: 14),
+              Text(
+                weather.forecast.forecastday[widget.index].day.condition.text,
+                style: const TextStyle(color: AppColor.textColor, fontSize: 20),
+              ),
+              const SizedBox(height: 14),
+              const Icon(
+                Icons.sunny,
+                color: AppColor.textColor,
+                size: 40,
+              ),
+              const SizedBox(height: 14),
+              Text(
+                weather.forecast.forecastday[widget.index].day.avgtempC
+                    .toString(),
+                style: const TextStyle(color: AppColor.textColor, fontSize: 20),
+              ),
+            ],
           ),
-          Icon(
-            Icons.sunny,
-            color: AppColor.textColor,
-          ),
-          Text(
-            'Sunny',
-            style: TextStyle(color: AppColor.textColor),
-          ),
-        ],
+        ),
       ),
     );
   }

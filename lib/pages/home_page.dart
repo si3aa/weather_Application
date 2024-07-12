@@ -44,6 +44,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: [
             const SearchTextFiled(),
+            const Spacer(),
             BlocBuilder<WeatherCubit, WeatherState>(builder: (context, state) {
               if (state is LoadingWeather) {
                 return const LoadWeather();
@@ -53,8 +54,7 @@ class _HomePageState extends State<HomePage> {
                 return const ErrorPage();
               }
             }),
-            // const Spacer(),
-            // const WeatherBody(),
+            const Spacer(),
           ],
         ),
       ),

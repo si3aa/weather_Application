@@ -11,7 +11,6 @@ class WeatherCubit extends Cubit<WeatherState> {
     try {
       weather = await WeatherDio().getHttp(loc: loc);
       emit(SuccessWeather());
-      print(weather!.location.country);
     } catch (e) {
       emit(FailureWeather(message: e.toString()));
     }
