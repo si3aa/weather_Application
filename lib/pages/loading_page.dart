@@ -6,8 +6,21 @@ class LoadWeather extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Center(
+    return Scaffold(
+       resizeToAvoidBottomInset: false,
+      backgroundColor: AppColor.backgroundColor,
+      appBar: AppBar(
+        backgroundColor: AppColor.backgroundColor,
+        centerTitle: true,
+        title: Text(
+          'WeatherApp',
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 25,
+              color: AppColor.textColor),
+        ),
+      ),
+      body: Center(
         child: CircularProgressIndicator(
           color: AppColor.textColor,
           backgroundColor: AppColor.textColor.withOpacity(0.1),

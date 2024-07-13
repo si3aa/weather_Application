@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather/constant/colors.dart';
+import 'package:weather/cubit/get_weather/get_cubit.dart';
 
 class SearchTextFiled extends StatefulWidget {
   const SearchTextFiled({super.key});
@@ -11,7 +13,7 @@ class SearchTextFiled extends StatefulWidget {
 class _SearchTextFiledState extends State<SearchTextFiled> {
   @override
   Widget build(BuildContext context) {
-    
+    TextEditingController search =TextEditingController();
     return Row(
       children: [
         Expanded(
@@ -21,11 +23,15 @@ class _SearchTextFiledState extends State<SearchTextFiled> {
               color: AppColor.textColor.withOpacity(.4),
               borderRadius: BorderRadius.circular(10),
             ),
-            child: const TextField(
+            child:  TextField(
+              controller: search,
+              onSubmitted: (value) {
+                BlocProvider.of<WeatherCubit>(context).getWeather(loc: value);
+              },
               cursorColor: AppColor.backgroundColor,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: "Search here...",
-                suffixIcon: Icon(Icons.search),
+                suffixIcon:  Icon(Icons.search),
                 border: InputBorder.none),
             ),
           ),

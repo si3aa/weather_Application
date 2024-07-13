@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 import 'package:weather/constant/colors.dart';
 import 'package:weather/cubit/get_weather/get_cubit.dart';
@@ -34,16 +35,21 @@ class _WeatherCardState extends State<WeatherCard> {
           child: Column(
             children: [
               Text(
-                weather.forecast.forecastday[widget.index].date.day.toString(),
-                style: const TextStyle(color: AppColor.textColor, fontSize: 20),
+                DateFormat("E - d").format(
+                  DateTime.parse(
+                    weather.forecast.forecastday[widget.index].date.day
+                        .toString(),
+                  ),
+                ),
+                style: TextStyle(color: AppColor.textColor, fontSize: 20),
               ),
               const SizedBox(height: 14),
               Text(
                 weather.forecast.forecastday[widget.index].day.condition.text,
-                style: const TextStyle(color: AppColor.textColor, fontSize: 20),
+                style: TextStyle(color: AppColor.textColor, fontSize: 20),
               ),
               const SizedBox(height: 14),
-              const Icon(
+              Icon(
                 Icons.sunny,
                 color: AppColor.textColor,
                 size: 40,
@@ -52,7 +58,7 @@ class _WeatherCardState extends State<WeatherCard> {
               Text(
                 weather.forecast.forecastday[widget.index].day.avgtempC
                     .toString(),
-                style: const TextStyle(color: AppColor.textColor, fontSize: 20),
+                style: TextStyle(color: AppColor.textColor, fontSize: 20),
               ),
             ],
           ),
