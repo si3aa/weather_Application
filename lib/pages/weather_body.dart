@@ -12,7 +12,7 @@ class WeatherBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     WeatherModel2 weather = BlocProvider.of<WeatherCubit>(context).weather!;
-    IconData iconWeather = BlocProvider.of<WeatherCubit>(context).icon;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: AppColor.backgroundColor,
@@ -80,11 +80,8 @@ class WeatherBody extends StatelessWidget {
                 const SizedBox(
                   width: 24,
                 ),
-                Icon(
-                  iconWeather,
-                  color: AppColor.textColor,
-                  size: 70,
-                )
+                Image.network(
+                    'https:${weather.forecast.forecastday[0].day.condition.icon}')
               ],
             ),
             const SizedBox(
