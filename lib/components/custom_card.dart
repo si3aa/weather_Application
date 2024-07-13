@@ -23,6 +23,7 @@ class _WeatherCardState extends State<WeatherCard> {
   @override
   Widget build(BuildContext context) {
     WeatherModel2 weather = BlocProvider.of<WeatherCubit>(context).weather!;
+    List<IconData> iconWeather =BlocProvider.of<WeatherCubit>(context).iconList;
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -37,7 +38,7 @@ class _WeatherCardState extends State<WeatherCard> {
               Text(
                 DateFormat("E - d").format(
                   DateTime.parse(
-                    weather.forecast.forecastday[widget.index].date.day
+                    weather.forecast.forecastday[widget.index].date
                         .toString(),
                   ),
                 ),
@@ -50,7 +51,7 @@ class _WeatherCardState extends State<WeatherCard> {
               ),
               const SizedBox(height: 14),
               Icon(
-                Icons.sunny,
+                iconWeather[widget.index],
                 color: AppColor.textColor,
                 size: 40,
               ),
